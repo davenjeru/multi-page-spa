@@ -1,23 +1,30 @@
 import {Link, Route, useParams, useRouteMatch} from "react-router-dom";
-import {Fragment} from "react";
+import {Fragment, useEffect} from "react";
 import Comments from "../components/comments/Comments";
-import {IQuote} from "../types";
 import HighlightedQuote from "../components/quotes/HighlightedQuote";
-
-const DUMMY_QUOTES: IQuote[] = [
-  {id: 'q1', author: 'Dave Mathews', text: 'This is a fun quote'},
-  {id: 'q2', author: 'Matt Watson', text: 'Click the link on the pop up banner'},
-  {id: 'q3', author: 'Max', text: 'Math is fun'},
-]
+import useHttp from "../hooks/use-http";
+import {getSingleQuote} from "../lib/api";
+import LoadingSpinner from "../components/UI/LoadingSpinner";
 
 const QuoteDetail = () => {
   const params: any = useParams()
   const {quoteId} = params
   const routeMatch = useRouteMatch()
 
+  const {data: quote, sendRequest, error, status} = useHttp(getSingleQuote, true)
 
 
-  const quote = DUMMY_QUOTES.find(q => q.id === quoteId)
+  useEffect(() => {
+    sendRequest(quoteId)
+  }, [sendRequest, quoteId])
+
+  if (status === 'pending') {
+    return <div className="centered"><LoadingSpinner/></div>
+  }
+
+  if (error) {
+    return <p className="centered">{error}</p>
+  }
 
   if (!quote) {
     return <p>No quote found</p>

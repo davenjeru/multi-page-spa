@@ -19,15 +19,15 @@ const QuoteForm: FC<QuoteFormProps> = (props) => {
   const [isEntering, setIsEntering] = useState(false)
 
 
-  function submitFormHandler(event: FormEvent) {
+  const submitFormHandler = (event: FormEvent) => {
     event.preventDefault();
 
     const enteredAuthor = authorInputRef.current!.value;
     const enteredText = textInputRef.current!.value;
 
     // optional: Could validate here
-    props.onAddQuote({author: enteredAuthor, text: enteredText, id: Math.random().toString()});
-  }
+    props.onAddQuote({author: enteredAuthor, text: enteredText});
+  };
   const finishEnteringForm = () => setIsEntering(false)
 
   const formFocusHandler = () => {

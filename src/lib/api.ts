@@ -29,7 +29,7 @@ export async function getSingleQuote(quoteId: string) {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(data.message || 'Could not fetch quote.');
+    throw new Error(data.error || 'Could not fetch quote.');
   }
 
   const loadedQuote = {
@@ -57,10 +57,10 @@ export async function addQuote(quoteData: IQuote) {
   return null;
 }
 
-export async function addComment(commentData: IComment, quoteId: string) {
-  const response = await fetch(`${FIREBASE_DOMAIN}/comments/${quoteId}.json`, {
+export async function addComment(requestData: {commentData: IComment, quoteId: string}) {
+  const response = await fetch(`${FIREBASE_DOMAIN}/comments/${requestData.quoteId}.json`, {
     method: 'POST',
-    body: JSON.stringify(commentData),
+    body: JSON.stringify(requestData.commentData),
     headers: {
       'Content-Type': 'application/json',
     },
