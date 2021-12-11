@@ -4,7 +4,7 @@ import Card from '../UI/Card';
 import LoadingSpinner from '../UI/LoadingSpinner';
 import classes from './QuoteForm.module.css';
 import {IQuote} from "../../types";
-import {Prompt} from "react-router-dom";
+// import {Prompt} from "react-router-dom";
 
 interface QuoteFormProps {
   onAddQuote(quote: IQuote): void,
@@ -36,7 +36,7 @@ const QuoteForm: FC<QuoteFormProps> = (props) => {
 
   return (
     <Fragment>
-      <Prompt when={isEntering} message={() => 'Are you sure you want to leave? All your entered data will be lost'}/>
+      {/*<Prompt when={isEntering} message={() => 'Are you sure you want to leave? All your entered data will be lost'}/>*/}
       <Card>
         <form onFocus={formFocusHandler} className={classes.form} onSubmit={submitFormHandler}>
           {props.isLoading && (

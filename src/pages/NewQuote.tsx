@@ -1,20 +1,20 @@
 import QuoteForm from "../components/quotes/QuoteForm";
 import {IQuote} from "../types";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {addQuote} from "../lib/api";
 import useHttp from "../hooks/use-http";
 import {useEffect} from "react";
 
 const NewQuote = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const {sendRequest, status} = useHttp(addQuote)
 
   useEffect(() => {
     if (status === 'completed') {
-      history.push('/quotes')
+      navigate('/quotes')
     }
-  }, [history, status])
+  }, [navigate, status])
 
   const addQuoteHandler = async (quote: IQuote) => {
     await sendRequest(quote)

@@ -3,7 +3,7 @@ import React, {FC, Fragment} from 'react';
 import QuoteItem from './QuoteItem';
 import classes from './QuoteList.module.css';
 import {IQuote} from "../../types";
-import {useHistory, useLocation} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
 
 const sortQuotesAscending = (a: IQuote, b: IQuote) => a.id! > b.id! ? 1 : -1
 const sortQuotesDescending = (a: IQuote, b: IQuote) => a.id! < b.id! ? 1 : -1
@@ -13,14 +13,14 @@ const sortQuotes = (quotes: IQuote[], ascending: boolean) => (
 )
 
 const QuoteList: FC<{ quotes: IQuote[] }> = (props) => {
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const changeSortingHandler = () => {
-    history.push({
+    navigate({
       pathname: location.pathname,
       search: `sort=${isSortingAscending ? 'desc' : 'asc'}`
     })
-    // history.push(`${location.pathname}/?sort=${isSortingAscending ? 'desc' : 'asc'}`);
+    // navigate(`${location.pathname}/?sort=${isSortingAscending ? 'desc' : 'asc'}`);
   };
 
   const location = useLocation()
