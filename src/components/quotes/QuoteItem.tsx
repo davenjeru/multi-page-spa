@@ -1,6 +1,7 @@
 import classes from './QuoteItem.module.css';
 import React, {FC} from "react";
 import {IQuote} from "../../types";
+import {Link} from 'react-router-dom';
 
 const QuoteItem: FC<IQuote> = (props) => {
   return (
@@ -11,9 +12,9 @@ const QuoteItem: FC<IQuote> = (props) => {
         </blockquote>
         <figcaption>{props.author}</figcaption>
       </figure>
-      <a className='btn'>
+      <Link className='btn' to={`/quotes/${props.id}`}>
         View Fullscreen
-      </a>
+      </Link>
     </li>
   );
 };

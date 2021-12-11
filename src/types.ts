@@ -1,10 +1,10 @@
-export interface IQuote {
+export type IQuote = {
   text: string;
   author: string;
   id?: string;
 }
 
-export interface IComment {
+export type IComment = {
   id?: string,
   text: string
 }
